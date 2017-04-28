@@ -32,3 +32,6 @@
 *.gba
 *.elf
 *.sav
+
+# Build Output Directory
+build/
