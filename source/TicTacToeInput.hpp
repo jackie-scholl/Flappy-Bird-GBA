@@ -7,4 +7,6 @@
 
 short getUserInputSquare(TicTacToe board);
 
+void wait_for_restart();
+
 #endif // TICTACTOEINPUTHPP

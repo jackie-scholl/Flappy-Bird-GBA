@@ -3,6 +3,4 @@
 
 void init_text();
 
-//void printText(char*);
-
 #endif // TEXTDEMO_HPP

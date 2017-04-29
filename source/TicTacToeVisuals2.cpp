@@ -23,15 +23,14 @@ SCR_ENTRY *bg0_map= se_mem[SBB_0];
 SCR_ENTRY *bg1_map= se_mem[SBB_1];
 
 
-uint se_index(uint tx, uint ty, uint pitch)
-{
-    uint sbb= ((tx>>5)+(ty>>5)*(pitch>>5));
-    return sbb*1024 + ((tx&31)+(ty&31)*32);
-}
+// static uint se_index(uint tx, uint ty, uint pitch) {
+//     uint sbb= ((tx>>5)+(ty>>5)*(pitch>>5));
+//     return sbb*1024 + ((tx&31)+(ty&31)*32);
+// }
 
 #define ARRAY_SIZE(foo) (sizeof(foo)/sizeof(foo[0]))
 
-void init_map0(int paletteBank) {
+static void init_map0(int paletteBank) {
     // initialize a background
     REG_BG0CNT= BG_CBB(CBB_0) | BG_SBB(SBB_0) | BG_REG_32x32 | BG_PRIO(2);//BG_REG_64x64;
     REG_BG0HOFS= 0;
@@ -76,7 +75,7 @@ void init_map0(int paletteBank) {
     }
 }
 
-void set_up_x() {
+static void set_up_x() {
     int base = 0;
     for (int i=0; i < 16; i++) {
       if ( i / 4 == 3 || i % 4 == 3) {
@@ -96,7 +95,7 @@ void set_up_x() {
     }
 }
 
-void set_up_highlight() {
+static void set_up_highlight() {
     int base = 32;
     for (int i=0; i < 16; i++) {
       if ( i / 4 == 3 || i % 4 == 3) {
@@ -117,7 +116,7 @@ void set_up_highlight() {
     }
 }
 
-void putpixel(int x, int y) {
+static void putpixel(int x, int y) {
   if (x == 2 || y == 2) { // cut off tips
     return;
   }
@@ -125,7 +124,7 @@ void putpixel(int x, int y) {
   tile_mem[4][16 + (x/8) + (y/8)*4].data[y%8] |= (1 << ((x%8)*4));
 }
 
-void drawcircle(int x0, int y0, int radius) {
+static void drawcircle(int x0, int y0, int radius) {
     int x = radius;
     int y = 0;
     int err = 0;
@@ -144,16 +143,14 @@ void drawcircle(int x0, int y0, int radius) {
     }
 }
 
-void set_up_o() {
+static void set_up_o() {
     drawcircle(24, 24, 22);
 }
 
-OBJ_ATTR obj_buffer[128];
-OBJ_AFFINE *obj_aff_buffer= (OBJ_AFFINE*)obj_buffer;
+static OBJ_ATTR obj_buffer[128];
 
 
-static const unsigned int metrPal2[]=
-{
+static const unsigned int metrPal2[] = {
 	0x001F4210,0x008C0000,0x04B629DA,0x0000004D,0x031C0218,0x00005F5D,0x01800100,0x00000240,
 	0x46314210,0x4E734A52,0x56B55294,0x5EF75AD6,0x67396318,0x6F7B6B5A,0x77BD739C,0x7FFF7BDE,
 
@@ -162,7 +159,7 @@ static const unsigned int metrPal2[]=
 	0x03E00000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000, // GREEN
 };
 
-void init_sprites() {
+static void init_sprites() {
   // (1) Places the tiles of a 4bpp boxed metroid sprite
   //   into LOW obj memory (cbb == 4)
   memcpy(pal_obj_mem, metrPal2, sizeof(metrPal2));
@@ -177,7 +174,7 @@ void init_sprites() {
 }
 
 
-void draw_thing(int i, int j, int paletteBank, int baseTid, bool isHighlight) {
+static void draw_thing(int i, int j, int paletteBank, int baseTid, bool isHighlight) {
   int x = 40 + 56*i;
   int y =  0 + 56*j;
   u32 tid = baseTid;
@@ -221,15 +218,13 @@ void init_screen2() {
 
   init_sprites();
 
-  printf("Hello\nWorld\n");
-
+  puts("HELLO\nWORLD");
 }
 
 void game_end2(int result) {
   int paletteBank = result + 1;
   init_map0(paletteBank);
-  printf("GAME\nEND\n");
-
+  puts("GAME\nEND");
 }
 
 int main_0() {

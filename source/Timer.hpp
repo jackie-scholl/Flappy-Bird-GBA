@@ -3,7 +3,7 @@
 
 void init_time_and_md5();
 
-void print_time();
+//void print_time();
 void reset_time();
 
 void md5_update();

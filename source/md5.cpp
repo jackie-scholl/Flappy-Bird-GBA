@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <stdint.h>
 
 #include "md5.h"
 
@@ -16,9 +15,9 @@
 #define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
 
 // These vars will contain the hash
-uint32_t h0, h1, h2, h3;
+static uint32_t h0, h1, h2, h3;
 
-void md5(const uint8_t *initial_msg, size_t initial_len) {
+static void md5(const uint8_t *initial_msg, size_t initial_len) {
 
     // Message (to prepare)
     uint8_t *msg = NULL;

@@ -96,6 +96,7 @@ bool TicTacToe::operator==(const TicTacToe &other) const {
 void TicTacToe::printState() const {
     md5_update();
     md5_print();
+    //print_time();
     vid_vsync();
 
     for (int i=0; i<3; i++) {
@@ -118,6 +119,8 @@ void TicTacToe::playGameOnCommandLine() {
 
     init_time_and_md5();
     init_screen2();
+
+    //print_time();
 
     while( (openCount=getOpenCount())>0 and getWinner() == ' ' ) {
         printState();
@@ -143,8 +146,10 @@ void TicTacToe::playGameOnCommandLine() {
     else if( getWinner() == 'O' ) { game_end2(-1); }
     else                          { game_end2( 0); }
 
-    do {
+    /*do {
       key_poll();
-    } while (!key_hit(KEY_START) && !key_hit(KEY_SELECT));
+    } while (!key_hit(KEY_START) && !key_hit(KEY_SELECT));*/
+
+    wait_for_restart();
 
 }
