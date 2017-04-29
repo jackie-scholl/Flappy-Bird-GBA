@@ -1,7 +1,7 @@
 #ifndef TICTACTOEVISUALS2_HPP
 #define TICTACTOEVISUALS2_HPP
 
-#include "tonc_demo_lib/toolbox.h"
+//#include "tonc_demo_lib/toolbox.h"
 
 void draw_x2(int i, int j);
 void draw_o2(int i, int j);

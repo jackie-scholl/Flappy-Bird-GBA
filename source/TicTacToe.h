@@ -9,7 +9,7 @@ class TicTacToe
     short sumWithStride( short startAt, short stride ) const;
     char  getWinner( short sum ) const ; // returns 'X','O' if sum=3,-3 respectively, else returns ' '
     //short getOpenCount() const;
-    short userInput();
+    //short userInput();
 
 public:
     TicTacToe();
@@ -25,7 +25,5 @@ public:
 
     bool operator==(const TicTacToe &other) const;
 };
-
-short getSquare(TicTacToe board);
 
 #endif // TICTACTOE_H

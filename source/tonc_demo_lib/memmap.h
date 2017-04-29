@@ -117,5 +117,19 @@
 #define REG_KEYINPUT		*(vu16*)(REG_BASE+0x0130)	// Key status
 #define REG_KEYCNT			*(vu16*)(REG_BASE+0x0132)
 
+//! \name Timer registers
+//\{
+#define REG_TM			((volatile TMR_REC*)(REG_BASE+0x0100))	//!< Timers as TMR_REC array
+
+#define REG_TM0D			*(vu16*)(REG_BASE+0x0100)	//!< Timer 0 data
+#define REG_TM0CNT			*(vu16*)(REG_BASE+0x0102)	//!< Timer 0 control
+#define REG_TM1D			*(vu16*)(REG_BASE+0x0104)	//!< Timer 1 data
+#define REG_TM1CNT			*(vu16*)(REG_BASE+0x0106)	//!< Timer 1 control
+#define REG_TM2D			*(vu16*)(REG_BASE+0x0108)	//!< Timer 2 data
+#define REG_TM2CNT			*(vu16*)(REG_BASE+0x010A)	//!< Timer 2 control
+#define REG_TM3D			*(vu16*)(REG_BASE+0x010C)	//!< Timer 3 data
+#define REG_TM3CNT			*(vu16*)(REG_BASE+0x010E)	//!< Timer 3 control
+//\}
+
 
 #endif // __MEMMAP__

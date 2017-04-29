@@ -68,7 +68,7 @@
 
 // --- REG_BGxCNT ---
 
-#define BG_MOSAIC			0x0040	//!< Enable Mosaic
+//#define BG_MOSAIC			0x0040	//!< Enable Mosaic
 #define BG_4BPP					 0	//!< 4bpp (16 color) bg (no effect on affine bg)
 #define BG_8BPP				0x0080	//!< 8bpp (256 color) bg (no effect on affine bg)
 #define BG_WRAP				0x2000	//!< Wrap around edges of affine bgs
@@ -274,6 +274,33 @@
 
 #define ATTR2_BUILD(id, pbank, prio)			\
 ( ((id)&0x3FF) | (((pbank)&15)<<12) | (((prio)&3)<<10) )
+
+
+
+
+// --- REG_TMxCNT ------------------------------------------------------
+
+/*!	\defgroup grpTimerTM	Timer Control Flags
+	\ingroup grpMemBits
+	\brief	Bits for REG_TMxCNT
+*/
+/*!	\{	*/
+
+#define TM_FREQ_SYS			 0	//!< System clock timer (16.7 Mhz)
+#define TM_FREQ_1			 0	//!< 1 cycle/tick (16.7 Mhz)
+#define TM_FREQ_64		0x0001	//!< 64 cycles/tick (262 kHz)
+#define TM_FREQ_256		0x0002	//!< 256 cycles/tick (66 kHz)
+#define TM_FREQ_1024	0x0003	//!< 1024 cycles/tick (16 kHz)
+#define TM_CASCADE		0x0004	//!< Increment when preceding timer overflows
+#define TM_IRQ			0x0040	//!< Enable timer irq
+#define TM_ENABLE		0x0080	//!< Enable timer
+
+#define TM_FREQ_MASK	0x0003
+#define TM_FREQ_SHIFT		 0
+#define TM_FREQ(n)		((n)<<TM_FREQ_SHIFT)
+
+/*!	\}	/defgroup	*/
+
 
 
 #endif // __MEMDEF__

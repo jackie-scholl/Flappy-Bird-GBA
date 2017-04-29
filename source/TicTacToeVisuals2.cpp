@@ -6,11 +6,11 @@
 
 #include "TicTacToeVisuals2.hpp"
 #include "tonc_demo_lib/toolbox.h"
-//#include "brin.h"
-#include "tonc_demo_lib/input.h"
-#include "tonc_demo_lib/metr.h"
+
+#include "TextDemo.hpp"
 
 #include <string.h>
+#include <stdio.h>
 
 //#define BLANK_FILL ((SCREEN_WIDTH-SCREEN_HEIGHT)/2 + 1)
 
@@ -87,6 +87,7 @@ void init_map0(int paletteBank) {
         //bool b = j < 5 || j >= 25 || j == 11 || j == 18 || i == 6 || i == 13;
         //int b = (j < 5 || j >= 25)? 2 : (j == 11 || j == 18 || i == 6 || i == 13)? 1 : 0;
 
+        //tile = SE_PALBANK(b? paletteBank : 0);
         if (j < 5 || j >= 25) {
           tile = SE_PALBANK(paletteBank) | 0;
         } else if (j == 11 || j == 18 || i == 6 || i == 13) {
@@ -174,11 +175,23 @@ void set_up_o() {
 OBJ_ATTR obj_buffer[128];
 OBJ_AFFINE *obj_aff_buffer= (OBJ_AFFINE*)obj_buffer;
 
+
+static const unsigned int metrPal2[]=
+{
+	0x001F4210,0x008C0000,0x04B629DA,0x0000004D,0x031C0218,0x00005F5D,0x01800100,0x00000240,
+	0x46314210,0x4E734A52,0x56B55294,0x5EF75AD6,0x67396318,0x6F7B6B5A,0x77BD739C,0x7FFF7BDE,
+
+	//0x001F0000,0x03E07C00,0x18C61084,0x294A2108,0x00000000,0x00000000,0x00000000,0x00000000,
+	0x001F0000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000, // RED
+	0x7C000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000, // BLUE
+	0x03E00000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000, // GREEN
+};
+
 void init_sprites() {
   // (1) Places the tiles of a 4bpp boxed metroid sprite
   //   into LOW obj memory (cbb == 4)
-  memcpy(pal_obj_mem, metrPal, metrPalLen);
-  memset(&tile_mem[4][0], 0, metr_boxTilesLen);
+  memcpy(pal_obj_mem, metrPal2, sizeof(metrPal2));
+  memset(&tile_mem[4][0], 0, 2048);
 
   // (2) Initialize all sprites
   oam_init(obj_buffer, 128);
@@ -204,7 +217,7 @@ void draw_thing(int i, int j, int paletteBank, int baseTid, bool isHighlight) {
     obj_set_attr(metr,
         ATTR0_SQUARE,              // Square, regular sprite
         ATTR1_SIZE_32 | flippy,              // 32x32p,
-        ATTR2_PALBANK(paletteBank) | tid);   // palbank paletteBank, tile 0
+        ATTR2_PALBANK(paletteBank) | tid | ATTR2_PRIO(2));   // palbank paletteBank, tile 0
 
     obj_set_pos(metr, x + (i%2)*16, y + (i/2)*16);
   }
@@ -225,16 +238,23 @@ void draw_highlight2(int i, int j) {
 }
 
 void init_screen2() {
+  setup();
+
   init_map0(4);
 
-	REG_DISPCNT = DCNT_MODE0 | DCNT_BG0 | DCNT_OBJ | DCNT_OBJ_1D;
+	REG_DISPCNT = (REG_DISPCNT & DCNT_BG1) | DCNT_MODE0 | DCNT_BG0 /*| DCNT_BG1*/ | DCNT_OBJ | DCNT_OBJ_1D;
 
   init_sprites();
+
+  printf("Hello\nWorld\n");
+
 }
 
 void game_end2(int result) {
   int paletteBank = result + 1;
   init_map0(paletteBank);
+  printf("GAME\nEND\n");
+
 }
 
 int main_0() {
@@ -736,3 +756,28 @@ if (i / 8 == 6) {
     t.data[7-j] |= (1 << j*4);
   }
 }*/
+/*void md5_loop() {
+      static const char STR[] = "STAY FOOLISH"; // static to ensure it wont end up in RAM
+      const size_t STR_LEN = sizeof(STR) - 1;
+      md5((const uint8_t*) STR, STR_LEN);
+
+      char data [100];
+      memset(data, 0, sizeof(data));
+
+      uint8_t result [16];
+      memset(result, 0, sizeof(result));
+
+      for (int i=0; i<1000; i++) {
+        memcpy(data, result, 16);
+        const size_t REG_BASE = 0x04000000;
+        memcpy(data + 16, (void*)(REG_BASE+0x0100), 16);
+        memcpy(data + 32, (void*)(REG_BASE+0x0130), 2);
+        md5_2((const uint8_t*) data, sizeof(data), result);
+      }
+}*/
+//puts("hello2");
+
+/*vid_vsync();
+reset_time();
+vid_vsync();
+print_time();*/
