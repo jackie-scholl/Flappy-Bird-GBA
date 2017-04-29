@@ -18,9 +18,6 @@
 #define CBB_1  1
 #define SBB_1 29
 
-#define CROSS_TX 15
-#define CROSS_TY 10
-
 BG_POINT bg0_pt= { 0, 0 };
 SCR_ENTRY *bg0_map= se_mem[SBB_0];
 SCR_ENTRY *bg1_map= se_mem[SBB_1];
@@ -216,7 +213,7 @@ void draw_highlight2(int i, int j) {
 }
 
 void init_screen2() {
-  setup();
+  init_text();
 
   init_map0(4);
 

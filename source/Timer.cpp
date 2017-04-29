@@ -61,21 +61,21 @@ void md5_update() {
 
 
 void md5_print() {
-	uint8_t *p;
-
-	p=(uint8_t *)&h0;
-	printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
-
-	p=(uint8_t *)&h1;
-	printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
-
-	p=(uint8_t *)&h2;
-	printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
-
-	p=(uint8_t *)&h3;
-	printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
-	//puts("");
-
-
-	printf("\x1b[4A");
+	// uint8_t *p;
+	//
+	// p=(uint8_t *)&h0;
+	// printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
+	//
+	// p=(uint8_t *)&h1;
+	// printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
+	//
+	// p=(uint8_t *)&h2;
+	// printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
+	//
+	// p=(uint8_t *)&h3;
+	// printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
+	// //puts("");
+	//
+	//
+	// printf("\x1b[4A");
 }

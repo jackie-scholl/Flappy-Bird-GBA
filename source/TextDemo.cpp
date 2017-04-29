@@ -8,7 +8,7 @@
 #include "TextDemo.hpp"
 
 
-int main_1() {
+/*int main_1() {
 //---------------------------------------------------------------------------------
 
 	// the vblank interrupt must be enabled for VBlankIntrWait() to work
@@ -46,13 +46,12 @@ int main_1() {
 	while (1) {
 		VBlankIntrWait();
 	}
-}
+}*/
 
-void setup() {
+void init_text() {
   irqInit();
   irqEnable(IRQ_VBLANK);
 
-  /*consoleDemoInit();*/
   consoleInit(	0,		// charbase
 					4,		// mapbase
 					1,		// background number
@@ -73,9 +72,9 @@ void setup() {
 
   REG_BG1CNT |= /*BG_CBB(CBB_0) | BG_SBB(SBB_0) | BG_REG_32x32 |*/ BG_PRIORITY(1);//BG_REG_64x64;
 
-  iprintf("\x1b[2J");
+  //iprintf("\x1b[2J");
 }
 
-void printText(char* text) {
-  iprintf(text);
-}
+// void printText(char* text) {
+//   iprintf(text);
+// }
